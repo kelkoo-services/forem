@@ -1,8 +1,8 @@
 Forem::Engine.routes.draw do
   root :to => "forums#index"
 
-  resources :forums, :only => [:index, :show] do
-    resources :topics do
+  resources :foro, controller: "forums", :only => [:index, :show], :as => :forum do
+    resources :mensaje, controller: "topics", :as => :topic do
       member do
         get :subscribe
         get :unsubscribe
@@ -10,17 +10,17 @@ Forem::Engine.routes.draw do
     end
   end
 
-  resources :topics, :only => [:new, :create, :index, :show, :destroy] do
+  resources :mensaje, controller: "topics", :only => [:new, :create, :index, :show, :destroy], :as => :topic do
     resources :posts
   end
 
-  get 'forums/:forum_id/moderation', :to => "moderation#index", :as => :forum_moderator_tools
+  get 'foro/:forum_id/moderation', :to => "moderation#index", :as => :forum_moderator_tools
   # For mass moderation of posts
-  put 'forums/:forum_id/moderate/posts', :to => "moderation#posts", :as => :forum_moderate_posts
+  put 'foro/:forum_id/moderate/posts', :to => "moderation#posts", :as => :forum_moderate_posts
   # Moderation of a single topic
-  put 'forums/:forum_id/topics/:topic_id/moderate', :to => "moderation#topic", :as => :moderate_forum_topic
+  put 'foro/:forum_id/mensaje/:topic_id/moderate', :to => "moderation#topic", :as => :moderate_forum_topic
 
-  resources :categories, :only => [:index, :show]
+  resources :categoria, controller: "categories", :only => [:index, :show], :as => :category
 
   namespace :admin do
     root :to => "base#index"
