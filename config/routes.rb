@@ -2,7 +2,7 @@ Forem::Engine.routes.draw do
   root :to => "forums#index"
 
   resources :foro, controller: "forums", :only => [:index, :show], :as => :forum do
-    resources :mensaje, :path_names => { :new  => 'neuvo' }, controller: "topics", :as => :topics do
+    resources :mensaje, :path_names => { :new  => 'nuevo' }, controller: "topics", :as => :topics do
       member do
         get :subscribe
         get :unsubscribe
@@ -10,7 +10,7 @@ Forem::Engine.routes.draw do
     end
   end
 
-  resources :mensaje, :path_names => { :new  => 'neuvo' }, controller: "topics", :only => [:new, :create, :index, :show, :destroy], :as => :topic do
+  resources :mensaje, :path_names => { :new  => 'nuevo' }, controller: "topics", :only => [:new, :create, :index, :show, :destroy], :as => :topic do
     resources :posts
   end
 
