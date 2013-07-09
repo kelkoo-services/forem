@@ -36,6 +36,7 @@ module Forem
 
     after_save :approve_user,   :if => :approved?
     after_save :blacklist_user, :if => :spam?
+    after_save :set_topic_last_post_at, :if => :approved?
     after_save :email_topic_subscribers, :if => Proc.new { |p| p.approved? && !p.notified? }
 
     class << self
@@ -118,7 +119,6 @@ module Forem
     end
 
     def approve_user
-      set_topic_last_post_at
       user.update_attribute(:forem_state, "approved") if user && user.forem_state != "approved"
     end
 
