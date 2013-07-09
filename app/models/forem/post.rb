@@ -31,7 +31,6 @@ module Forem
 
     delegate :forum, :to => :topic
 
-    after_create :set_topic_last_post_at
     after_create :subscribe_replier, :if => :user_auto_subscribe?
     after_create :skip_pending_review
 
@@ -119,6 +118,7 @@ module Forem
     end
 
     def approve_user
+      set_topic_last_post_at
       user.update_attribute(:forem_state, "approved") if user && user.forem_state != "approved"
     end
 
