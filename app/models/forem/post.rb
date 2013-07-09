@@ -8,7 +8,9 @@ module Forem
         event :spam,    :transitions_to => :spam
         event :approve, :transitions_to => :approved
       end
-      state :spam
+      state :spam do
+        event :approve, :transitions_to => :approved
+      end
       state :approved do
         event :approve, :transitions_to => :approved
       end
