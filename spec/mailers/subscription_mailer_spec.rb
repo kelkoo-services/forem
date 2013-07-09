@@ -7,6 +7,9 @@ describe Forem::SubscriptionMailer do
     let(:post) { FactoryGirl.create(:post, :topic => topic) }
     let(:mail) { Forem::SubscriptionMailer.topic_reply(post, user) }
 
+# We comment this tests as this option is disabled now (as requested)
+=begin
+
   it "sends an email announcing a forum post update" do
     mail.to.should eq([user.email])
     mail.subject.should eq(::I18n.t('received_reply', :scope => 'forem.topic'))
@@ -17,4 +20,5 @@ describe Forem::SubscriptionMailer do
       mail.body.encoded.should match(unsubscribe_forum_topic_path(topic.forum, topic))
     end
   end
+=end
 end
